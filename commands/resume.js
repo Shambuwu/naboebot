@@ -11,6 +11,6 @@ module.exports = {
 
         const success = queue.setPaused(false);
 
-        return message.channel.send(success ? `Ik zal het huidige nummer, **${queue.current.title}** voortzetten` : `Er is iets fout gegaan...`);
+        return message.channel.send(success ? `Ik zal het huidige nummer, **${queue.current.title}**, voortzetten` : `Er is iets fout gegaan...`);
     },
 }

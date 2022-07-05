@@ -1,7 +1,7 @@
 module.exports = {
     name: "pause",
     aliases: [],
-    utilization: "pause",
+    utilization: "!pause",
     voiceChannel: true,
 
     execute(client, message) {
@@ -11,6 +11,6 @@ module.exports = {
 
         const success = queue.setPaused(true);
 
-        return message.channel.send(success ? `Ik zal het huidige nummer, **${queue.current.title}** pauzeren!` : `Er is iets fout gegaan...`);
+        return message.channel.send(success ? `Ik zal het huidige nummer, **${queue.current.title}**, pauzeren!` : `Er is iets fout gegaan...`);
     }
 }

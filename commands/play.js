@@ -28,7 +28,7 @@ module.exports = {
             return message.channel.send(`Ik kom de voice channel niet in ofzo? Kankerzooi.`);
         }
 
-        await message.channel.send(`Ik ben je liedje aan het laden hoor... :heart:`);
+        // await message.channel.send(`Ik ben je liedje aan het laden hoor... :heart:`);
 
         result.playlist ? queue.addTracks(result.tracks) : queue.addTrack(result.tracks[0]);
 
