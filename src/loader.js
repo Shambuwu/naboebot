@@ -3,22 +3,30 @@ const { Collection } = require("discord.js");
 
 client.commands = new Collection();
 
-const events = readdirSync("./events/");
-
 console.log("Loading events...");
 
-for(const file of events){
-    const event = require("../events/" + file);
-    console.log("-> Loaded event: " + file.split(".")[0]);
-    client.on(file.split(".")[0], event.bind(null, client));
-    delete require.cache[require.resolve("../events/" + file)];
-}
+readdirSync("./events/").forEach(dir => {
+    const events = readdirSync(`./events/${dir}/`);
+    for (const file of events) {
+        const event = require(`../events/${dir}/${file}`);
+        let filename = file.split(".")[0];
+        if (dir === "client") {
+            client.on(filename, event.bind(null, client));
+        } else {
+            player.on(filename, event.bind(null, player));
+        }
+        console.log(`-> Loaded event: ${filename}`);
+        delete require.cache[require.resolve(`../events/${dir}/${file}`)];
+    }
+})
+
 
 console.log("Loading commands...");
 
 readdirSync("./commands/").forEach((file) => {
-    const command = require("../commands/" + file);
-    console.log("-> Loaded command: " + file.split(".")[0]);
+    const command = require(`../commands/${file}`);
+    let filename = file.split(".")[0];
+    console.log(`-> Loaded command: ${filename}`);
     client.commands.set(command.name.toLowerCase(), command);
-    delete require.cache[require.resolve("../commands/" + file)];
+    delete require.cache[require.resolve(`../commands/${file}`)];
 })
