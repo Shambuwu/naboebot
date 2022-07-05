@@ -12,7 +12,7 @@ Custom Discord music bot.
 ## Installation
 
 ```bash
-  git clone https://github.com/Shambuwu/naboebot
+  git clone https://github.com/Shambuwu/naboebot.git
   cd naboebot
   npm install
   node main.js
