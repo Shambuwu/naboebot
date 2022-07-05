@@ -6,5 +6,7 @@ module.exports = (client, message) => {
 
     // if(message.content.indexOf(pref) !== 0) return;
 
+    const args = message.content.slice("!".length).trim().split(/ +/g);
+    const command = args.shift().toLowerCase();
 
 }
