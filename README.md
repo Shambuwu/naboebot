@@ -6,8 +6,7 @@ Custom Discord music bot.
 ## Features
 
 - Play music from YouTube, Spotify, etc...
-- Display stats
-- Upcoming features are WIP
+- Feature to display monthly stats WIP
 
 
 ## Installation
