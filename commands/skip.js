@@ -1,7 +1,7 @@
 module.exports = {
     name: "skip",
     aliases: ["s"],
-    utilization: "{prefix}skip",
+    utilization: "!skip",
     voiceChannel: true,
 
     execute(client, message) {

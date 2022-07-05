@@ -1,8 +1,7 @@
 module.exports = (client, message) => {
 
     function printResult(result){
-        console.log(`Executing command by ${message.author}\n
-        -> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
+        console.log(`Executing command by ${message.author}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
     }
 
     if(message.author.bot || message.channel.type === "dm") return;
