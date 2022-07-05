@@ -2,18 +2,17 @@ const { Client, GuildMember, Intents } = require("discord.js");
 const { Player, QueryType } = require("discord-player");
 const config = require("./config.json");
 
-const client = new Client({
+global.client = new Client({
     intents: [
         Intents.FLAGS.GUILD_VOICE_STATES,
         Intents.FLAGS.GUILD_MESSAGES, Intents.FLAGS.GUILDS
     ]
 });
 
-client.login(config.token);
+global.player = new Player(client);
 
-client.once('ready', () => {
-    console.log('Ready!');
+client.login(config.token).then(r => {
+    console.log("Client logged in on token: " + r)
 });
 
-client.on("error", console.error);
-client.on("warn", console.warn);
+require("./src/loader.js");
