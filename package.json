@@ -1,0 +1,9 @@
+{
+  "name": "naboebot",
+  "version": "1.0.0",
+  "dependencies": {
+    "@discordjs/opus": "^0.5.3",
+    "discord-player": "^5.2.2",
+    "discord.js": "^13.8.1"
+  }
+}
