@@ -1,9 +1,10 @@
 module.exports = (client, message) => {
     if(message.author.bot || message.channel.type === "dm") return;
+    if(message.content.indexOf("!") !== 0) return;
 
-    const prefix = client.config.prefix;
+    message.channel.send(`**Miauw!** Ik ben nog work in progress helaas, ${message.author.toString()}!`);
 
-    if(message.content.indexOf(prefix) !== 0) return;
+    // if(message.content.indexOf(pref) !== 0) return;
 
-    message.channel.send("prefix test");
+
 }
