@@ -12,7 +12,7 @@ global.client = new Client({
 
 global.player = new Player(client);
 
-client.login(config.token).then(r => {
+client.login(config.authorization.token).then(r => {
     console.log("Client logged in on token: " + r)
 });
 
