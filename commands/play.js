@@ -7,7 +7,7 @@ module.exports = {
     voiceChannel: true,
 
     async execute(client, message, args) {
-        if (!args[0]) return message.channel.send(`Ben je nou echt zo dom, of doe je alsof ${message.author}...?`);
+        if (!args[0]) return message.channel.send(`Ben je nou echt zo dom, of doe je alsof ${message.author}...? :nerd:`);
 
         const result = await player.search(args.join(" "), {
             requestedBy: message.author,

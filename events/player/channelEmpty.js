@@ -1,3 +1,3 @@
 module.exports = (player, queue) => {
-    queue.metadata.send("Leaving voice channel due to inactivity.");
+    queue.metadata.send(`Waar is iedereen?? :pleading_face:`);
 }
