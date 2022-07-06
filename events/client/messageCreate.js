@@ -13,10 +13,15 @@ module.exports = (client, message) => {
     const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
 
     if (cmd && cmd.voiceChannel) {
-        printResult(false);
-        if (!message.member.voice.channel) return message.channel.send("Je moet wel in een voice channel zitten... :nerd:");
+        if (!message.member.voice.channel){
+            printResult(false);
+            return message.channel.send("Je moet wel in een voice channel zitten... :nerd:");
+        }
 
-        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id) return message.channel.send(`Bro, ${message.author}, ik zit in een andere voice channel...`);
+        if (message.guild.me.voice.channel && message.member.voice.channel.id !== message.guild.me.voice.channel.id){
+            printResult(false);
+            return message.channel.send(`Bro, ${message.author}, ik zit in een andere voice channel...`);
+        }
     }
 
     if(cmd) {
