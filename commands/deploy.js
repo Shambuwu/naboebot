@@ -8,7 +8,6 @@ module.exports = {
 
     async execute(client, message) {
         const commands = client.commands.filter((command) => command.slashCommand);
-
         message.guild.commands.set(commands)
             .then(() => {
                 message.channel.send(`Deployed commands.`);

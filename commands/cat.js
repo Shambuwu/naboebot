@@ -3,14 +3,14 @@ const axios = require("axios");
 
 module.exports = {
     name: "cat",
-    description: "Posts a random image of cat",
+    description: "Posts a random image of a cat",
     aliases: [],
-    showHelp: true,
     utilization: "!cat",
     slashCommand: true,
 
      async execute(client, command) {
         let embed = new MessageEmbed();
+
          await axios.get("https://api.thecatapi.com/v1/images/search")
              .then((response) => response.data)
              .then((data) => {
