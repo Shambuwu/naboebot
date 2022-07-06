@@ -35,6 +35,8 @@ module.exports = {
                 highWaterMark: 1 << 30,
                 dlChunkSize: 0,
             },
+            leaveOnEnd: false,
+            leaveOnEmptyCooldown: 10000,
         })
 
         try {
