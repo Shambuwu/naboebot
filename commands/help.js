@@ -20,7 +20,7 @@ module.exports = {
     execute(client, message, args) {
 
         const embed = new MessageEmbed();
-        const commands = [...client.commands].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length !== 0 ? '\n(!'+ command[1].aliases.join(", !") + ')' : ""}`);
+        const commands = [...client.commands.filter((x) => x.showHelp !== false)].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length !== 0 ? '\n(!'+ command[1].aliases.join(", !") + ')' : ""}`);
         const image = new MessageAttachment(`./assets/Screenshot_10.png`);
 
         let chunks = [], size = 5;
