@@ -1,8 +1,10 @@
 module.exports = {
     name: "stop",
+    description: "Disconnects the player from the voice channel",
     aliases: [],
     utilization: "!stop",
     voiceChannel: true,
+    slashCommand: true,
 
     execute(client, message) {
         const queue = player.getQueue(message.guild.id);

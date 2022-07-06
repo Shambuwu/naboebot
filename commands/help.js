@@ -3,9 +3,11 @@ const settings = require("../config.json");
 
 module.exports = {
     name: "help",
+    description: "Shows all available commands",
     aliases: ["h"],
     showHelp: false,
     utilization: "!help",
+    slashCommand: true,
 
     execute(client, message, args) {
 

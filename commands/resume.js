@@ -1,8 +1,10 @@
 module.exports = {
     name: "resume",
+    description: "Resumes the player if paused",
     aliases: ["r"],
     utilization: "!resume",
     voiceChannel: true,
+    slashCommand: true,
 
     execute(client, message) {
         const queue = player.getQueue(message.guild.id);

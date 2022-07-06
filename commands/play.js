@@ -2,9 +2,19 @@ const { QueryType } = require("discord-player");
 
 module.exports = {
     name: "play",
+    description: "Plays a track by querying a title or URL",
     aliases: ["p"],
     utilization: "!play [titel / URL]",
     voiceChannel: true,
+    slashCommand: true,
+    options: [
+        {
+            name: "query",
+            description: "Song you want to query",
+            type: "STRING",
+            required: true,
+        }
+    ],
 
     async execute(client, message, args) {
         if (!args[0]) return message.channel.send(`Ben je nou echt zo dom, of doe je alsof ${message.author}...? :nerd:`);

@@ -1,8 +1,10 @@
 module.exports = {
     name: "skip",
+    description: "Skips the current track",
     aliases: ["s"],
     utilization: "!skip",
     voiceChannel: true,
+    slashCommand: true,
 
     execute(client, message) {
         const queue = player.getQueue(message.guild.id);

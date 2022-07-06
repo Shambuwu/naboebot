@@ -1,5 +1,5 @@
-const { Client, GuildMember, Intents } = require("discord.js");
-const { Player, QueryType } = require("discord-player");
+const { Client, Intents } = require("discord.js");
+const { Player } = require("discord-player");
 const config = require("./config.json");
 
 global.client = new Client({
