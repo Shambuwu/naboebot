@@ -1,3 +1,4 @@
+const {MessageEmbed} = require("discord.js");
 module.exports = {
     name: "skip",
     description: "Skips the current track",
@@ -13,6 +14,12 @@ module.exports = {
 
         const success = queue.skip();
 
-        return message.channel.send(success ? `Ik zal dit kut nummer skippen!` : `Er is iets fout gegaan, ${message.author}...`);
+        const embed = new MessageEmbed();
+
+        embed.setColor("BLURPLE");
+        embed.setDescription(success ? `Ik zal dit kut nummer skippen!` : `Er is iets fout gegaan, ${message.author}...`);
+        embed.setTimestamp();
+
+        return queue.metadata.send({embeds: [embed]});
     },
 }

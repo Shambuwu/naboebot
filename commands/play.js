@@ -29,14 +29,15 @@ module.exports = {
 
         const queue = await player.createQueue(message.guild, {
             metadata: message.channel,
+            leaveOnEnd: false,
+            leaveOnEmpty: true,
             ytdlOptions: {
                 filter: 'audioonly',
                 quality: "highestaudio",
                 highWaterMark: 1 << 30,
                 dlChunkSize: 0,
             },
-            leaveOnEnd: false,
-            leaveOnEmptyCooldown: 10000,
+
         })
 
         try {

@@ -1,3 +1,11 @@
+const {MessageEmbed} = require("discord.js");
+
 module.exports = (player, queue, track) => {
-    queue.metadata.send(`Ik heb dit deuntje **${track.title}** toegevoegd aan de wachtrij!!! (Kanker sick)`);
+    const embed = new MessageEmbed();
+
+    embed.setColor("BLURPLE");
+    embed.setDescription(`Ik heb dit deuntje **${track.title}** toegevoegd aan de wachtrij!`);
+    embed.setTimestamp();
+
+    queue.metadata.send({embeds: [embed]});
 }
