@@ -18,7 +18,6 @@ module.exports = {
 
         embed.setColor("BLURPLE");
         embed.setDescription(success ? `Ik zal dit kut nummer skippen!` : `Er is iets fout gegaan, ${message.author}...`);
-        embed.setTimestamp();
 
         return queue.metadata.send({embeds: [embed]});
     },

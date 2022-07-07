@@ -1,3 +1,11 @@
+const {MessageEmbed} = require("discord.js");
+
 module.exports = (player, queue) => {
-    queue.metadata.send(`Ik heb alle nummers afgespeeld.`);
+    const embed = new MessageEmbed();
+
+    embed.setColor("BLURPLE");
+    embed.setDescription(`Ik heb alle nummers afgespeeld.`);
+    embed.setTimestamp();
+
+    queue.metadata.send({embeds: [embed]});
 }
