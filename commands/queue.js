@@ -19,7 +19,7 @@ module.exports = {
         const tracks = queue.tracks.map((track, index) => `${index + 1} - **${track.title}** (aangevraagd door ${track.requestedBy.username})`);
 
         embed.setDescription(`Huidige nummer: **${queue.current.title}**\n\n${tracks.join("\n")}`);
-        embed.setThumbnail(queue.current.thumbnail); //TODO: This isn't working at the moment.
+        embed.setThumbnail(queue.current.thumbnail);
         embed.setTimestamp();
         
         message.channel.send({embeds: [embed]});
