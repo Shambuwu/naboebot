@@ -6,7 +6,7 @@ module.exports = {
     description: "Shows all available commands",
     aliases: ["h"],
     showHelp: false,
-    utilization: "!help [paginanummer]",
+    utilization: `${client.config.settings.prefix}help [page number]`,
     slashCommand: true,
     options: [
         {
@@ -19,8 +19,8 @@ module.exports = {
 
     execute(client, message, args) {
         const embed = new MessageEmbed();
-        const commands = [...client.commands.filter((x) => x.showHelp !== false)].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length !== 0 ? '\n(!' + command[1].aliases.join(", !") + ')' : ""}`);
-        const image = new MessageAttachment(`./assets/client/Screenshot_7.png`);
+        const commands = [...client.commands.filter((x) => x.showHelp !== false)].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length > 0 ? '\n('+ client.config.settings.prefix + command[1].aliases.join(", " + client.config.settings.prefix) + ')' : ""}`);
+        const image = new MessageAttachment(`./assets/client/${client.config.settings.thumbnail}`);
 
         let chunks = [], size = 5;
         while (commands.length > 0) chunks.push(commands.splice(0, size));
@@ -29,12 +29,12 @@ module.exports = {
         if (args.join("") > chunks.length || args.join("") <= 0 || !Number.isInteger(parseInt(args.join("")))) return message.reply(`Ongeldige parameter, ben je dom? :nerd:`);
 
         embed.setColor("BLURPLE")
-        embed.setTitle(`Mecha Naboe, tot uw dienst :moyai:`);
-        embed.setDescription(`Alle commando's die ik, Mecha Naboe, kan uitvoeren.\n\n ${chunks[args - 1].join("\n\n")}\n\n**Pagina ${args}/${chunks.length}**`);
+        embed.setTitle(`${client.config.settings.name}, tot uw dienst :moyai:`);
+        embed.setDescription(`Alle commando's die ik, ${client.config.settings.name}, kan uitvoeren.\n\n${chunks[args - 1].join("\n\n")}\n\n**Pagina ${args}/${chunks.length}**`);
         if (parseInt(args) === chunks.length) {
-            embed.setImage("attachment://Screenshot_7.png");
+            embed.setImage(`attachment://${client.config.settings.thumbnail}`);
         } else {
-            embed.setThumbnail("attachment://Screenshot_7.png");
+            embed.setThumbnail(`attachment://${client.config.settings.thumbnail}`);
         }
         embed.setTimestamp();
 

@@ -5,7 +5,7 @@ module.exports = {
     name: "cat",
     description: "Posts a random image of a cat",
     aliases: [],
-    utilization: "!cat",
+    utilization: `${client.config.settings.prefix}cat`,
     slashCommand: true,
 
     async execute(client, command) {

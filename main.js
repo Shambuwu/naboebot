@@ -1,6 +1,5 @@
 const { Client, Intents } = require("discord.js");
 const { Player } = require("discord-player");
-const config = require("./config.json");
 
 global.client = new Client({
     intents: [
@@ -10,9 +9,11 @@ global.client = new Client({
     ]
 });
 
+client.config = require("./config.json");;
+
 global.player = new Player(client);
 
-client.login(config.authorization.token).then(r => {
+client.login(client.config.authorization.token).then(r => {
     console.log("Client logged in on token: " + r)
 });
 

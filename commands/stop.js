@@ -2,7 +2,7 @@ module.exports = {
     name: "stop",
     description: "Disconnects the player from the voice channel",
     aliases: [],
-    utilization: "!stop",
+    utilization: `${client.config.settings.prefix}stop`,
     voiceChannel: true,
     slashCommand: true,
 

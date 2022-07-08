@@ -2,7 +2,7 @@ module.exports = {
     name: "clear",
     description: "Clears the entire queue",
     aliases: [],
-    utilization: "!clear",
+    utilization: `${client.config.settings.prefix}clear`,
     voiceChannel: true,
     slashCommand: true,
 

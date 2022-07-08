@@ -4,7 +4,7 @@ module.exports = {
     name: "queue",
     description: "Shows the current queue",
     aliases: ["q"],
-    utilization: "!queue",
+    utilization: `${client.config.settings.prefix}queue`,
     voiceChannel: true,
     slashCommand: true,
 

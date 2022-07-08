@@ -2,7 +2,7 @@ module.exports = {
     name: "pause",
     description: "Pauses the current track",
     aliases: [],
-    utilization: "!pause",
+    utilization: `${client.config.settings.prefix}pause`,
     voiceChannel: true,
     slashCommand: true,
 

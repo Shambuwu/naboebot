@@ -3,7 +3,7 @@ module.exports = {
     description: "Register slash commands by posting to Discord API",
     aliases: [],
     showHelp: false,
-    utilization: "!deploy",
+    utilization: `${client.config.settings.prefix}deploy`,
     slashCommand: false,
 
     async execute(client, message) {

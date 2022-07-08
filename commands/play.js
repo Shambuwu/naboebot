@@ -4,7 +4,7 @@ module.exports = {
     name: "play",
     description: "Plays a track by querying a title or URL",
     aliases: ["p"],
-    utilization: "!play [titel / URL]",
+    utilization: `${client.config.settings.prefix}play [titel / url]`,
     voiceChannel: true,
     slashCommand: true,
     options: [

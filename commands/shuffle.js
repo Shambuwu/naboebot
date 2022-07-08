@@ -2,7 +2,7 @@ module.exports = {
     name: "shuffle",
     description: "Shuffles the queue",
     aliases: [],
-    utilization: "!shuffle",
+    utilization: `${client.config.settings.prefix}shuffle`,
     voiceChannel: true,
     slashCommand: true,
 

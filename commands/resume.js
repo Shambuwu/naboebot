@@ -2,7 +2,7 @@ module.exports = {
     name: "resume",
     description: "Resumes the player if paused",
     aliases: ["r"],
-    utilization: "!resume",
+    utilization: `${client.config.settings.prefix}resume`,
     voiceChannel: true,
     slashCommand: true,
 

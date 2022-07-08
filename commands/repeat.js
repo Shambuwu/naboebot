@@ -5,7 +5,7 @@ module.exports = {
     name: "repeat",
     description: "Repeats the current track or queue",
     aliases: ["loop"],
-    utilization: "!repeat ['track' / 'queue']",
+    utilization: `${client.config.settings.prefix}repeat ['track' / 'queue']`,
     voiceChannel: true,
     slashCommand: true,
     options: [

@@ -4,7 +4,7 @@ module.exports = {
     name: "joke",
     description: "Posts a random joke",
     aliases: ["j"],
-    utilization: "!joke",
+    utilization: `${client.config.settings.prefix}joke`,
     slashCommand: true,
 
     async execute(client, command){

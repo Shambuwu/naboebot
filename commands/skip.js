@@ -3,7 +3,7 @@ module.exports = {
     name: "skip",
     description: "Skips the current track",
     aliases: ["s"],
-    utilization: "!skip",
+    utilization: `${client.config.settings.prefix}skip`,
     voiceChannel: true,
     slashCommand: true,
 

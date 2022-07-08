@@ -4,7 +4,7 @@ module.exports = {
     name: "remove",
     description: "Removes a track from the queue",
     aliases: ["delete", "destroy"],
-    utilization: "!remove [index]",
+    utilization: `${client.config.settings.prefix}remove [index]`,
     voiceChannel: true,
     slashCommand: true,
     options: [

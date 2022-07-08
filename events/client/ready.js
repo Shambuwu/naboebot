@@ -8,7 +8,7 @@ module.exports = () => {
         time += 1;
         await client.user.setPresence({
             activities: [{
-                name: `!help, uptime: ${time}m`,
+                name: `${client.config.settings.prefix}help, uptime: ${time}m`,
                 type: "PLAYING",
             }]
         })
