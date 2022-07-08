@@ -1,4 +1,4 @@
-const { QueueRepeatMode } = require('discord-player');
+const {QueueRepeatMode} = require('discord-player');
 const {MessageEmbed, Interaction} = require("discord.js");
 
 module.exports = {
@@ -13,7 +13,7 @@ module.exports = {
             name: "query",
             description: "OPTIONS: track / queue",
             type: "STRING",
-            required: true,
+            required: false,
         }
     ],
 
@@ -36,7 +36,7 @@ module.exports = {
 
             return command.channel.send(success ? {embeds: [embed]} : `Er is iets fout gegaan, ${author}...`);
         } else {
-            if (args.join("").toLowerCase() === "track") {
+            if (args.join("").toLowerCase() === "track" || args.length === 0) {
                 if (queue.repeatMode === 2) return command.channel.send(`Er staat al muziek op repeat, schakel dit eerst uit.`);
 
                 const success = queue.setRepeatMode(queue.repeatMode === 0 ? QueueRepeatMode.TRACK : QueueRepeatMode.OFF);

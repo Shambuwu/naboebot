@@ -21,7 +21,7 @@ module.exports = {
         embed.setDescription(`Huidige nummer: **${queue.current.title}**\n\n${tracks.join("\n")}`);
         embed.setThumbnail(queue.current.thumbnail);
         embed.setTimestamp();
-        
+
         message.channel.send({embeds: [embed]});
     }
 }

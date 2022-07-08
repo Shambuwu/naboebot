@@ -22,12 +22,10 @@ module.exports = {
         const argsInt = parseInt(args.join(""));
 
         if (!queue || !queue.playing) return command.channel.send(`Er zit niks in de queue, ${author}...`);
-        if(!Number.isInteger(argsInt) || argsInt > queue.tracks.length || argsInt <= 0) return command.channel.send(`Ongeldige parameter, ${author}...`);
+        if (!Number.isInteger(argsInt) || argsInt > queue.tracks.length || argsInt <= 0) return command.channel.send(`Ongeldige parameter, ${author}...`);
 
-        const trackToRemove = queue.tracks[argsInt-1];
-
+        const trackToRemove = queue.tracks[argsInt - 1];
         const success = queue.remove(trackToRemove);
-
         const embed = new MessageEmbed();
 
         embed.setColor("BLURPLE");

@@ -1,4 +1,4 @@
-const { QueryType } = require("discord-player");
+const {QueryType} = require("discord-player");
 
 module.exports = {
     name: "play",
@@ -24,7 +24,7 @@ module.exports = {
             searchEngine: QueryType.AUTO,
         });
 
-        if(!result || !result.tracks.length) return message.channel.send(`Bro, ik kan geen resultaten vinden voor deze query: ${args.join(" ")}...`);
+        if (!result || !result.tracks.length) return message.channel.send(`Bro, ik kan geen resultaten vinden voor deze query: ${args.join(" ")}...`);
 
 
         const queue = await player.createQueue(message.guild, {
