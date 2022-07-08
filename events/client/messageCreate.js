@@ -5,6 +5,10 @@ module.exports = (client, message) => {
     }
 
     if(message.author.bot || message.channel.type === "dm") return;
+    if(message.content.toLowerCase().includes("jdvkm")){
+        client.users.cache.get("236899263513231362").send(`Gebruiker **${message.author.username}#${message.author.discriminator}** heeft het J-woord gezegd op **${new Date()}**`);
+        return message.reply("Wat zei jij daar!?");
+    }
     if(message.content.indexOf(client.config.settings.prefix) !== 0) return;
 
     const args = message.content.slice("!".length).trim().split(/ +/g);
