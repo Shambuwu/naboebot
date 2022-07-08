@@ -17,7 +17,6 @@ module.exports = {
         })
             .then((response) => response.data)
             .then((data) => {
-                console.log(data);
                 embed.setDescription(data.joke.joke);
             });
 
