@@ -11,11 +11,7 @@ module.exports = {
     async execute(client, command){
         let embed = new MessageEmbed();
 
-        await axios.get("https://moppenbot.nl/api/random/", {
-            headers: {
-                "nsfw": true,
-            }
-        })
+        await axios.request(client.config.apis.moppenbot)
             .then((response) => response.data)
             .then((data) => {
                 embed.setDescription(data.joke.joke);

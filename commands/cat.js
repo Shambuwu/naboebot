@@ -11,7 +11,7 @@ module.exports = {
     async execute(client, command) {
         let embed = new MessageEmbed();
 
-        await axios.get("https://api.thecatapi.com/v1/images/search")
+        await axios.request(client.config.apis.thecatapi)
             .then((response) => response.data)
             .then((data) => {
                 embed.setImage(data[0].url);
