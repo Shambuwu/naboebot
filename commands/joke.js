@@ -1,5 +1,6 @@
-const {MessageEmbed, Interaction} = require("discord.js");
+const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
+
 module.exports = {
     name: "joke",
     description: "Posts a random joke",
