@@ -28,9 +28,9 @@ module.exports = {
         })
     }, //TODO: Change this, mediatype is no longer being used.
 
-    getAllCount: async (callback) => {
+    getAllCount: async (servername, callback) => {
         let data = [];
-        playerdb.each(`SELECT COUNT(title) as count, title FROM player_stats GROUP BY title`, (err, row) => {
+        playerdb.each(`SELECT COUNT(title) as count, title FROM player_stats WHERE server LIKE ? GROUP BY title`, [servername], (err, row) => {
             if (err && err.code) return console.log(err);
             data.push(row);
         }, function () {

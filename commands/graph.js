@@ -15,7 +15,7 @@ module.exports = {
     ],
 
     async execute(client, command) {
-        await db.getAllCount((result) => {
+        await db.getAllCount(command.guild.name,(result) => {
             const data = [...result].splice(0, 5).sort((a, b) => a.count > b.count ? 1 : -1).reverse();
             const chart = {
                 type: 'bar',
