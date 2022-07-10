@@ -47,10 +47,11 @@ module.exports = {
             return message.channel.send(`Ik kom de voice channel niet in ofzo? Kankerzooi.`);
         }
 
-        // await message.channel.send(`Ik ben je liedje aan het laden hoor... :heart:`);
-
         result.playlist ? queue.addTracks(result.tracks) : queue.addTrack(result.tracks[0]);
 
         if (!queue.playing) await queue.play();
+
+        const track = result.tracks[0];
+        await db.insert(track.title, track.url, `${track.requestedBy.username}#${track.requestedBy.discriminator}`, message.guild.name);
     },
 }

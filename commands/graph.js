@@ -15,31 +15,52 @@ module.exports = {
     ],
 
     async execute(client, command) {
-        const chart = {
-            type: 'bar',
-            data: {
-                labels: ['Week 1', 'Week 2', 'Week 3', 'Week 4'],
-                datasets: [{
-                    label: 'Retweets',
-                    data: [12, 5, 40, 5]
-                }, {
-                    label: 'Likes',
-                    data: [80, 42, 215, 30]
-                }],
-                backgroundColor: "white",
-
+        await db.getAllCount((result) => {
+            const data = [...result].splice(0, 5).sort((a, b) => a.count > b.count ? 1 : -1).reverse();
+            const chart = {
+                type: 'bar',
+                data: {
+                    labels: data.map(x => x.title),
+                    datasets: [{
+                        label: "",
+                        data: data.map(x => x.count),
+                    }]
+                },
+                options: {
+                    scales: {
+                        yAxes: [{
+                            ticks: {
+                                beginAtZero: true,
+                                fontSize: 10,
+                                fontColor: 'white',
+                            },
+                            gridLines: {
+                                color: 'gray',
+                            },
+                        }],
+                        xAxes: [{
+                            ticks: {
+                                fontSize: 5,
+                                fontColor: 'white',
+                            },
+                            gridLines: {
+                                color: 'gray',
+                            },
+                        }],
+                    }
+                }
             }
-        }
 
-        const encodedChart = encodeURIComponent(JSON.stringify(chart));
-        const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
+            const encodedChart = encodeURIComponent(JSON.stringify(chart));
+            const chartUrl = `https://quickchart.io/chart?c=${encodedChart}`;
 
-        const embed = new MessageEmbed();
+            const embed = new MessageEmbed();
 
-        embed.setDescription(`Kiek eens eem.`);
-        embed.setImage(chartUrl);
-        embed.setTimestamp();
+            embed.setDescription(`Kiek eens eem.`);
+            embed.setImage(chartUrl);
+            embed.setTimestamp();
 
-        return command.channel.send({embeds: [embed]});
+            return command.channel.send({embeds: [embed]});
+        })
     }
 }
