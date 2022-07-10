@@ -1,5 +1,4 @@
 module.exports = (client, message) => {
-
     function printResult(result){
         console.log(`Executing command by ${message.author.username}#${message.author.discriminator}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
     }

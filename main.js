@@ -9,12 +9,16 @@ global.client = new Client({
     ]
 });
 
-client.config = require("./config.json");;
+client.config = require("./config.json");
 
 global.player = new Player(client);
 
-client.login(client.config.authorization.token).then(r => {
+client.login(client.config.authorization.token).then(async r => {
     console.log("Client logged in on token: " + r)
-});
+    global.db = require("./src/database-init");
+    await require("./src/loader.js");
 
-require("./src/loader.js");
+    db.insert('test', 'test').then(() => {
+        db.select().then(r => console.log(r));
+    });
+});
