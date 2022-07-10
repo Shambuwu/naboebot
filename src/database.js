@@ -1,6 +1,10 @@
 const sqlite3 = require("sqlite3");
 const playerdb = new sqlite3.Database('./databases/player.db');
 
+playerdb.serialize(() => {
+    playerdb.run("CREATE TABLE IF NOT EXISTS player_stats([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [title] VARCHAR(255) NOT NULL, [url] VARCHAR(255) NOT NULL, [requested_by] VARCHAR(255) NOT NULL,[server] VARCHAR(255) NOT NULL, [time] TIMESTAMP DEFAULT CURRENT_TIMESTAMP)")
+})
+
 module.exports = {
     insert: async (title, url, requested_by, server) => {
         playerdb.run(`INSERT INTO player_stats(title, url, requested_by, server) VALUES(?, ?, ?, ?)`, [title, url, requested_by, server], (err) => {
