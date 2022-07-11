@@ -18,33 +18,51 @@ module.exports = {
         await db.getAllCount(command.guild.name,(result) => {
             const data = [...result].splice(0, 5).sort((a, b) => a.count > b.count ? 1 : -1).reverse();
             const chart = {
-                type: 'bar',
+                type: "bar",
                 data: {
                     labels: data.map(x => x.title),
                     datasets: [{
-                        label: "",
+                        label: "Top 5 meest afgespeelde nummers",
                         data: data.map(x => x.count),
+                        backgroundColor: [
+                            `rgba(255, 99, 132, 0.2)`,
+                            "rgba(255, 159, 64, 0.2)",
+                            "rgba(255, 205, 86, 0.2)",
+                            "rgba(75, 192, 192, 0.2)",
+                            "rgba(54, 162, 235, 0.2)",
+                        ],
+                        borderColor: [
+                            "rgb(255, 99, 132)",
+                            "rgb(255, 159, 64)",
+                            "rgb(255, 205, 86)",
+                            "rgb(75, 192, 192)",
+                            "rgb(54, 162, 235)",
+                        ],
+                        borderWidth: 1.5,
+                        barThickness: 50,
                     }]
                 },
                 options: {
                     scales: {
                         yAxes: [{
                             ticks: {
+                                precision: 0,
                                 beginAtZero: true,
                                 fontSize: 10,
-                                fontColor: 'white',
+                                fontColor: "white",
                             },
                             gridLines: {
-                                color: 'gray',
+                                color: "gray",
                             },
                         }],
                         xAxes: [{
                             ticks: {
+                                precision: 0,
                                 fontSize: 5,
-                                fontColor: 'white',
+                                fontColor: "white",
                             },
                             gridLines: {
-                                color: 'gray',
+                                color: "gray",
                             },
                         }],
                     }
@@ -56,7 +74,7 @@ module.exports = {
 
             const embed = new MessageEmbed();
 
-            embed.setDescription(`Kiek eens eem.`);
+            embed.setDescription("Kiek eens eem.");
             embed.setImage(chartUrl);
             embed.setTimestamp();
 
