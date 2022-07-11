@@ -13,8 +13,8 @@ client.config = require("./config.json");
 
 global.player = new Player(client);
 
-client.login(client.config.authorization.token).then(async r => {
-    console.log("Client logged in on token: " + r)
+client.login(client.config.authorization.token).then(async (result) => {
+    console.log(`Client logged in on token ${result}`)
     global.db = require("./src/database.js");
     await require("./src/loader.js");
 });

@@ -22,7 +22,7 @@ module.exports = {
                 data: {
                     labels: data.map(x => x.title),
                     datasets: [{
-                        label: "Top 5 meest afgespeelde nummers",
+                        label: "",
                         data: data.map(x => x.count),
                         backgroundColor: [
                             `rgba(255, 99, 132, 0.2)`,
@@ -74,7 +74,7 @@ module.exports = {
 
             const embed = new MessageEmbed();
 
-            embed.setDescription("Kiek eens eem.");
+            embed.setDescription(`Top 5 meest gespeelde nummers in ${command.guild.name}`);
             embed.setImage(chartUrl);
             embed.setTimestamp();
 
