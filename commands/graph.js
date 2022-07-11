@@ -5,14 +5,14 @@ module.exports = {
     aliases: ["g"],
     utilization: `${client.config.settings.prefix}graph [graph type]`,
     slashCommand: true,
-    options: [
-        {
-            name: "query",
-            description: "What type of data you would like to graph",
-            type: "STRING",
-            required: true,
-        }
-    ],
+    // options: [
+    //     {
+    //         name: "query",
+    //         description: "What type of data you would like to graph",
+    //         type: "STRING",
+    //         required: false,
+    //     }
+    // ],
 
     async execute(client, command) {
         await db.getAllCount(command.guild.name,(result) => {

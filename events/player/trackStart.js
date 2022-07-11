@@ -8,7 +8,7 @@ module.exports = async (player, queue, track) => {
     embed.setDescription(`Ik ga deze lijpe track draaien: **${track.title}** in **${queue.connection.channel.name}**.`);
     embed.setTimestamp();
 
-    queue.metadata.send({embeds: [embed]});
-
     await db.insert(track.title, track.url, `${track.requestedBy.username}#${track.requestedBy.discriminator}`, queue.guild.name);
+
+    queue.metadata.send({embeds: [embed]});
 }
