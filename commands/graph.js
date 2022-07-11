@@ -40,7 +40,7 @@ module.exports = {
                         ],
                         borderWidth: 1.5,
                         barThickness: 50,
-                    }]
+                    }],
                 },
                 options: {
                     scales: {
