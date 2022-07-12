@@ -9,11 +9,6 @@ module.exports = {
     slashCommand: true,
 
     execute(client, command, args) {
-
-        const cmd = client.battlecats.get(args.join(""));
-
-        return cmd.execute();
-
         return command.channel.send(`Deze functionaliteit is nog niet klaar.`);
     },
 

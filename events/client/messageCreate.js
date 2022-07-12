@@ -14,7 +14,7 @@ module.exports = (client, message) => {
     if(message.content.indexOf(client.config.settings.prefix) !== 0){
         const bc = client.battlecats.get("battlecat");
         client.msgCounter++;
-        if(client.msgCounter === 5) {
+        if(client.msgCounter === 25) {
             client.msgCounter = 0;
             return bc.spawncat(client, message);
         }

@@ -18,5 +18,4 @@ client.login(client.config.authorization.token).then(async (result) => {
     console.log(`Client logged in on token ${result}`)
     global.db = require("./src/database.js");
     await require("./src/loader.js");
-    await require('./commands/battlecat/loader');
 });
