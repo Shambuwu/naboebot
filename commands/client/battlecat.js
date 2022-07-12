@@ -31,12 +31,12 @@ module.exports = {
         const embed = new MessageEmbed();
         const battlecat = {
             name: "",
+            thumbnail: "",
             lvl: 0,
             hp: 0,
             atk: 0,
             def: 0,
             spd: 0,
-            thumbnail: "",
         }
 
         await axios.request(client.config.apis.thecatapi)
