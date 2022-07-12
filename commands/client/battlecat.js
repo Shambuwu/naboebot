@@ -7,9 +7,24 @@ module.exports = {
     aliases: ["bc"],
     utilization: `${client.config.settings.prefix}battlecat [battlecat command]`,
     slashCommand: true,
+    options: [
+        {
+            name: "query",
+            description: "Which battlecat command you want to use",
+            type: "STRING",
+            required: false,
+        }
+    ],
 
     execute(client, command, args) {
-        return command.channel.send(`Deze functionaliteit is nog niet klaar.`);
+        if (args.length !== 0){
+            const cmdName = args[0].toLowerCase();
+            const cmd = client.battlecats.get(cmdName) || client.battlecats.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
+            if(cmd) return cmd.execute(client, command, args.splice(1));
+        } else {
+            const cmd = client.battlecats.get("help");
+            return cmd.execute(client, command, ["1"]);
+        }
     },
 
     async spawncat(client, command) {

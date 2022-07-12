@@ -2,6 +2,7 @@ const { readdirSync } = require("fs");
 const { Collection } = require("discord.js");
 
 client.commands = new Collection();
+client.battlecats = new Collection();
 
 console.log("Loading events...");
 
@@ -35,14 +36,14 @@ readdirSync("./commands/").forEach((dir) => {
     }
 })
 
-// console.log("Loading battlecat commands...")
-//
-// const bcCommands = readdirSync("./commands/battlecat/");
-// for (const file of bcCommands) {
-//     const command = require(`./commands/battlecat/${file}`);
-//     if (command.exclude) return;
-//     console.log(`-> Loaded command: ${command.name}`);
-//     client.battlecats.set(command.name.toLowerCase(), command);
-//     delete require.cache[require.resolve(`./commands/battlecat/${file}`)];
-// }
+console.log("Loading battlecat commands...")
+
+const bcCommands = readdirSync("./commands/battlecat/");
+for (const file of bcCommands) {
+    const command = require(`../commands/battlecat/${file}`);
+    if (command.exclude) return;
+    console.log(`-> Loaded command: ${command.name}`);
+    client.battlecats.set(command.name.toLowerCase(), command);
+    delete require.cache[require.resolve(`../commands/battlecat/${file}`)];
+}
 //TODO: Cannot find module??
