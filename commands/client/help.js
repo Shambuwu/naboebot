@@ -18,7 +18,7 @@ module.exports = {
 
     execute(client, message, args) {
         const embed = new MessageEmbed();
-        const commands = [...client.commands.filter((x) => x.showHelp !== false)].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length > 0 ? `\n(`+ client.config.settings.prefix + command[1].aliases.join(", " + client.config.settings.prefix) + ')' : ""}`);
+        const commands = [...client.commands.filter((x) => x.showHelp !== false && !x.exclude)].map((command, index) => `${index + 1} - **${command[1].name}**\n${command[1].utilization}\n${command[1].description}${command[1].aliases.length > 0 ? `\n(`+ client.config.settings.prefix + command[1].aliases.join(", " + client.config.settings.prefix) + ')' : ""}`);
         const image = new MessageAttachment(`./assets/client/${client.config.settings.thumbnail}`);
 
         let chunks = [], size = 5;

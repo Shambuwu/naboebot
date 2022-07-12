@@ -8,12 +8,23 @@ module.exports = (client, message) => {
         client.users.cache.get("236899263513231362").send(`Gebruiker **${message.author.username}#${message.author.discriminator}** heeft het J-woord gezegd op **${new Date()}** in **${message.guild.name}** - **${message.channel.name}**`);
         return message.reply("Wat zei jij daar!?");
     }
-    if(message.content.indexOf(client.config.settings.prefix) !== 0) return;
+    if(message.content.toLowerCase().includes("douwe") && message.author.id === "236899263513231362"){
+        return message.reply("Chris***");
+    }
+    if(message.content.indexOf(client.config.settings.prefix) !== 0){
+        const bc = client.commands.get("battlecat");
+        client.msgCounter++;
+        if(client.msgCounter === 25) {
+            client.msgCounter = 0;
+            return bc.spawncat(client, message);
+        }
+        return;
+    }
 
     const args = message.content.slice("!".length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
+    const cmd = client.commands.find(cmd => cmd.name.includes(command) && !cmd.exclude) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
 
     if (cmd && cmd.voiceChannel) {
         if (!message.member.voice.channel){

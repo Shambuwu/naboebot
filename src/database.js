@@ -17,7 +17,7 @@ module.exports = {
         playerdb.each(`SELECT * FROM player_stats`, (err, row) => {
             if (err && err.code) return console.log(err);
             data.push(row);
-        }, function () {
+        }, () => {
             callback(data);
         })
     },
@@ -27,7 +27,7 @@ module.exports = {
         playerdb.each(`SELECT * FROM player_stats WHERE media_type = ${mediatype}`, (err, row) => {
             if (err && err.code) return console.log(err);
             data.push(row);
-        }, function () {
+        }, () => {
             callback(data);
         })
     }, //TODO: Change this, mediatype is no longer being used.
@@ -37,7 +37,7 @@ module.exports = {
         playerdb.each(`SELECT COUNT(title) as count, title FROM player_stats WHERE server LIKE ? GROUP BY title`, [servername], (err, row) => {
             if (err && err.code) return console.log(err);
             data.push(row);
-        }, function () {
+        }, () => {
             callback(data);
         })
     }

@@ -20,13 +20,16 @@ readdirSync("./events/").forEach(dir => {
     }
 })
 
-
 console.log("Loading commands...");
 
-readdirSync("./commands/").forEach((file) => {
-    const command = require(`../commands/${file}`);
-    let filename = file.split(".")[0];
-    console.log(`-> Loaded command: ${filename}`);
-    client.commands.set(command.name.toLowerCase(), command);
-    delete require.cache[require.resolve(`../commands/${file}`)];
+readdirSync("./commands/").forEach((dir) => {
+    const commands = readdirSync((`./commands/${dir}/`));
+    for (const file of commands) {
+        const command = require(`../commands/${dir}/${file}`);
+        if (command.exclude) return;
+        let filename = file.split(".")[0];
+        console.log(`-> Loaded command: ${filename}`);
+        client.commands.set(command.name.toLowerCase(), command);
+        delete require.cache[require.resolve(`../commands/${dir}/${file}`)];
+    }
 })

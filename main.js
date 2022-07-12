@@ -10,6 +10,7 @@ global.client = new Client({
 });
 
 client.config = require("./config.json");
+client.msgCounter = 0;
 
 global.player = new Player(client);
 
