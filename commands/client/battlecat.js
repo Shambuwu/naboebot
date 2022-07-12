@@ -1,4 +1,4 @@
-const {MessageEmbed, Collection} = require("discord.js");
+const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
 
 module.exports = {
@@ -8,7 +8,12 @@ module.exports = {
     utilization: `${client.config.settings.prefix}battlecat [battlecat command]`,
     slashCommand: true,
 
-    execute(client, command) {
+    execute(client, command, args) {
+
+        const cmd = client.battlecats.get(args.join(""));
+
+        return cmd.execute();
+
         return command.channel.send(`Deze functionaliteit is nog niet klaar.`);
     },
 
@@ -43,5 +48,9 @@ module.exports = {
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
         return command.channel.send({embeds: [embed]});
+    },
+
+    async battle() {
+
     }
 }

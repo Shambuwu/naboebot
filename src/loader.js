@@ -23,7 +23,8 @@ readdirSync("./events/").forEach(dir => {
 console.log("Loading commands...");
 
 readdirSync("./commands/").forEach((dir) => {
-    const commands = readdirSync((`./commands/${dir}/`));
+    if (dir.toLowerCase() === "battlecat") return;
+    const commands = readdirSync((`./commands/${dir}/`))
     for (const file of commands) {
         const command = require(`../commands/${dir}/${file}`);
         if (command.exclude) return;
@@ -33,3 +34,15 @@ readdirSync("./commands/").forEach((dir) => {
         delete require.cache[require.resolve(`../commands/${dir}/${file}`)];
     }
 })
+
+console.log("Loading battlecat commands...")
+
+const bcCommands = readdirSync("./commands/battlecat/");
+for (const file of bcCommands) {
+    const command = require(`./commands/battlecat/${file}`);
+    if (command.exclude) return;
+    console.log(`-> Loaded command: ${command.name}`);
+    client.battlecats.set(command.name.toLowerCase(), command);
+    delete require.cache[require.resolve(`./commands/battlecat/${file}`)];
+}
+//TODO: Cannot find module??

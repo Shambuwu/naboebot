@@ -12,9 +12,9 @@ module.exports = (client, message) => {
         return message.reply("Chris***");
     }
     if(message.content.indexOf(client.config.settings.prefix) !== 0){
-        const bc = client.commands.get("battlecat");
+        const bc = client.battlecats.get("battlecat");
         client.msgCounter++;
-        if(client.msgCounter === 25) {
+        if(client.msgCounter === 5) {
             client.msgCounter = 0;
             return bc.spawncat(client, message);
         }
@@ -24,7 +24,7 @@ module.exports = (client, message) => {
     const args = message.content.slice("!".length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();
 
-    const cmd = client.commands.find(cmd => cmd.name.includes(command) && !cmd.exclude) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
+    const cmd = client.commands.get(command) || client.commands.find(cmd => cmd.aliases && cmd.aliases.includes(command));
 
     if (cmd && cmd.voiceChannel) {
         if (!message.member.voice.channel){
