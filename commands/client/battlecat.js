@@ -77,13 +77,13 @@ module.exports = {
 
         let rarity;
         let i = getRandomInt(100);
-        if (i < 60){
+        if (i < 50){
             rarity = rarities.common;
-        } else if (i >= 50 && i < 75) {
+        } else if (i >= 50 && i < 80) {
             rarity = rarities.uncommon;
-        } else if (i >= 75 && i < 90) {
+        } else if (i >= 80 && i < 95) {
             rarity = rarities.rare;
-        } else if (i >= 90 && i < 99) {
+        } else if (i >= 95 && i < 99) {
             rarity = rarities.ultra_rare;
         } else {
             rarity = rarities.legendary;
@@ -110,7 +110,7 @@ module.exports = {
             hp: 5 + getRandomInt(rarity.modifier),
             atk: 1 + getRandomInt(rarity.modifier),
             def: 1 + getRandomInt(rarity.modifier),
-            spd: 1 + getRandomInt(rarity.modifier),
+            spd: 1 + Math.floor(getRandomInt(rarity.modifier) / 2),
             rarity: rarity.name,
         }
 
