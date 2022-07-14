@@ -16,7 +16,7 @@ module.exports = {
     ],
 
     async execute(client, message, args) {
-        let battlecat = client.battlecats.current;
+        let battlecat = message.guild.currentBattlecat;
 
         if (battlecat === null || battlecat === undefined) return message.reply(`Er is niets om te vangen, ${message.author}...`);
 
@@ -29,7 +29,8 @@ module.exports = {
 
         if (battlecat.name.toLowerCase() === args.join(" ").toLowerCase()) {
             await db.insertBattlecat(battlecat.name, battlecat.thumbnail, JSON.stringify(battlecat.stats), `${message.author.username}#${message.author.discriminator}`, message.guild.name);
-            client.battlecats.current = null;
+            clearTimeout(message.guild.currentTimeout);
+            message.guild.currentBattlecat = null;
             return message.reply({embeds: [embed]});
         }
     }

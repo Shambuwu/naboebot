@@ -22,7 +22,7 @@ module.exports = {
             if (args.length === 0) args.push("1");
             if (args.join("") > chunks.length || args.join("") <= 0 || !Number.isInteger(parseInt(args.join("")))) return message.reply(`Ongeldige parameter, ben je dom? :nerd:`);
 
-            embed.setFooter({text: `\n\nPagina ${args}/${chunks.length}`});
+            embed.setFooter({text: `Pagina ${args}/${chunks.length}`});
             embed.addFields(chunks[args - 1]);
             return message.channel.send({embeds: [embed]});
         })

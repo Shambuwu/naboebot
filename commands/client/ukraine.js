@@ -6,6 +6,7 @@ module.exports = {
     description: "Posts an article of the current Ukraine war",
     aliases: [],
     utilization: `${client.config.settings.prefix}ukraine`,
+    exclude: true,
     slashCommand: true,
 
     async execute(client, command) {

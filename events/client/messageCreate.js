@@ -1,9 +1,15 @@
 module.exports = (client, message) => {
     function printResult(result){
-        console.log(`Executing command by ${message.author.username}#${message.author.discriminator}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
+        console.log(`Executing command by ${message.author.username}#${message.author.discriminator} in ${message.guild.name}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
     }
 
     if(message.author.bot || message.channel.type === "dm") return;
+    if(message.guild.counter !== undefined){
+        message.guild.counter++
+    } else {
+        message.guild.counter = 1;
+    }
+
     if(message.content.toLowerCase().includes("jdvkm")){
         client.users.cache.get("236899263513231362").send(`Gebruiker **${message.author.username}#${message.author.discriminator}** heeft het J-woord gezegd op **${new Date()}** in **${message.guild.name}** - **${message.channel.name}**`);
         return message.reply("Wat zei jij daar!?");
@@ -11,15 +17,14 @@ module.exports = (client, message) => {
     if(message.content.toLowerCase().includes("douwe") && message.author.id === "236899263513231362"){
         return message.reply("Chris***");
     }
-    if(message.content.indexOf(client.config.settings.prefix) !== 0){
-        const bc = client.commands.get("battlecat");
-        client.msgCounter++;
-        if(client.msgCounter === 25) {
-            client.msgCounter = 0;
-            return bc.spawncat(client, message);
-        }
-        return;
+
+    const bc = client.commands.get("battlecat");
+    if(message.guild.counter === 5) {
+        message.guild.counter = 0;
+        bc.spawncat(client, message).then((r) => console.log(`-> Battlecat has spawned in ${message.guild.name}`));
     }
+
+    if(message.content.indexOf(client.config.settings.prefix) !== 0) return;
 
     const args = message.content.slice("!".length).trim().split(/ +/g);
     const command = args.shift().toLowerCase();

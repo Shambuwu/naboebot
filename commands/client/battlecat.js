@@ -10,12 +10,12 @@ const rarities = {
     uncommon: {
         name: "Uncommon",
         modifier: 5,
-        color: "GRAY",
+        color: "GREEN",
     },
     rare: {
         name: "Rare",
         modifier: 10,
-        color: "GREEN",
+        color: "BLUE",
     },
     ultra_rare: {
         name: "Ultra Rare",
@@ -73,6 +73,8 @@ module.exports = {
     },
 
     async spawncat(client, command) {
+        clearTimeout(command.guild.currentTimeout);
+
         let rarity;
         let i = getRandomInt(100);
         if (i < 60){
@@ -113,15 +115,15 @@ module.exports = {
         }
 
         embed.setColor(rarity.color);
-        embed.setDescription(`Gebruik **!battlecat claim** *{naam}* om deze kat te vangen!`);
+        embed.setDescription(`Gebruik **!battlecat claim** *naam* om deze kat te vangen!`);
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
 
-        client.battlecats.current = battlecat;
-        setTimeout(() => {
-            if (client.battlecats.current !== null) {
-                command.channel.send(`**${battlecat.name}** is verdwenen...`);
-                client.battlecats.current = null;
+        command.guild.currentBattlecat = battlecat; //TODO: Dit verandert ook alle huidige katten van alle andere guilds, weet niet waarom.
+        command.guild.currentTimeout = setTimeout(() => {
+            if (command.guild.currentBattlecat !== null) {
+                command.channel.send(`**${command.guild.currentBattlecat.name}** is verdwenen...`);
+                command.guild.currentBattlecat = null;
             }
         }, 45000);
 

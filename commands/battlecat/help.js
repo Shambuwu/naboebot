@@ -27,7 +27,7 @@ module.exports = {
 
         embed.setColor("BLURPLE")
         embed.setTitle(`**Battlecats**, laat je klote katten met elkaar strijden.`);
-        embed.setDescription(`Alle commando's voor Battlecats.\n\n${chunks[args - 1].join("\n\n")}\n\n**Pagina ${args}/${chunks.length}**`);
+        embed.setDescription(`Alle commando's voor Battlecats.\n\n${chunks[args - 1].join("\n\n")}\n\n*Pagina ${args}/${chunks.length}*`);
         embed.setThumbnail(`https://cdn.discordapp.com/avatars/${creator.id}/${creator.avatar}.jpeg`);
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
