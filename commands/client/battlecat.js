@@ -1,5 +1,20 @@
 const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
+const battlecat = {
+    name: "",
+    thumbnail: "",
+    stats: {
+        lvl: 1,
+        hp: 5 + getRandomInt(10),
+        atk: 1 + getRandomInt(10),
+        def: 1 + getRandomInt(5),
+        spd: 5 + getRandomInt(3),
+    }
+}
+
+function getRandomInt(max) {
+    return Math.floor(Math.random() * max);
+}
 
 module.exports = {
     name: "battlecat",
@@ -29,15 +44,6 @@ module.exports = {
 
     async spawncat(client, command) {
         const embed = new MessageEmbed();
-        const battlecat = {
-            name: "",
-            thumbnail: "",
-            lvl: 0,
-            hp: 0,
-            atk: 0,
-            def: 0,
-            spd: 0,
-        }
 
         await axios.request(client.config.apis.thecatapi)
             .then((response) => response.data)
@@ -57,10 +63,15 @@ module.exports = {
         embed.setDescription(`Gebruik **!battlecat claim** *{naam}* om deze kat te vangen!`);
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
+
+        client.battlecats.current = battlecat;
+        setTimeout(() => {
+            if (client.battlecats.current !== null) {
+                command.channel.send(`**${battlecat.name}** is verdwenen...`);
+                client.battlecats.current = null;
+            }
+        }, 30000);
+
         return command.channel.send({embeds: [embed]});
     },
-
-    async battle() {
-
-    }
 }
