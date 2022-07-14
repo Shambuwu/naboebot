@@ -2,7 +2,7 @@ const {MessageEmbed} = require("discord.js");
 
 module.exports = {
     name: "claim",
-    description: "Battlecat claim command, used to claim a battlecat",
+    description: "Battlecat claim command, use to claim a battlecat",
     aliases: ["c"],
     utilization: `${client.config.settings.prefix}battlecat claim [name]`,
     slashCommand: true,
@@ -28,7 +28,7 @@ module.exports = {
         embed.setTimestamp();
 
         if (battlecat.name.toLowerCase() === args.join(" ").toLowerCase()) {
-            await db.insertbc(battlecat.name, battlecat.thumbnail, JSON.stringify(battlecat.stats), `${message.author.username}#${message.author.discriminator}`);
+            await db.insertBattlecat(battlecat.name, battlecat.thumbnail, JSON.stringify(battlecat.stats), `${message.author.username}#${message.author.discriminator}`, message.guild.name);
             client.battlecats.current = null;
             return message.reply({embeds: [embed]});
         }

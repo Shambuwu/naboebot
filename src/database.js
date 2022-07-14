@@ -4,7 +4,7 @@ const battlecatdb = new sqlite3.Database("./databases/battlecat.db");
 
 playerdb.serialize(() => {
     playerdb.run("CREATE TABLE IF NOT EXISTS player_stats([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [title] VARCHAR(255) NOT NULL, [url] VARCHAR(255) NOT NULL, [requested_by] VARCHAR(255) NOT NULL,[server] VARCHAR(255) NOT NULL, [time] TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
-    battlecatdb.run("CREATE TABLE IF NOT EXISTS battlecats([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [name] VARCHAR(255) NOT NULL, [thumbnail] VARCHAR(255) NOT NULL, [stats] VARCHAR(255) NOT NULL, [owner] VARCHAR(255) NOT NULL)");
+    battlecatdb.run("CREATE TABLE IF NOT EXISTS battlecats([id] INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, [name] VARCHAR(255) NOT NULL, [thumbnail] VARCHAR(255) NOT NULL, [stats] VARCHAR(255) NOT NULL, [owner] VARCHAR(255) NOT NULL, [server] VARCHAR(255) NOT NULL, [time] TIMESTAMP DEFAULT CURRENT_TIMESTAMP)");
 })
 
 module.exports = {
@@ -14,14 +14,20 @@ module.exports = {
         })
     },
 
-    insertbc: async (name, thumbnail, stats, owner) => {
-        battlecatdb.run(`INSERT INTO battlecats(name, thumbnail, stats, owner) VALUES(?, ?, ?, ?)`, [name, thumbnail, stats, owner], (err) => {
+    insertBattlecat: async (name, thumbnail, stats, owner, server) => {
+        battlecatdb.run(`INSERT INTO battlecats(name, thumbnail, stats, owner, server) VALUES(?, ?, ?, ?, ?)`, [name, thumbnail, stats, owner, server], (err) => {
             if (err && err.code) return console.log(err);
         })
     },
 
-    getbc: async (name, owner) => {
-
+    getAllBattlecatsFromUser: async (owner, server, callback) => {
+        let data = [];
+        battlecatdb.each(`SELECT * FROM battlecats WHERE owner = ? AND server = ?`, [owner, server], (err, row) => {
+            if (err && err.code) return console.log(err);
+            data.push(row);
+        }, () => {
+            callback(data);
+        })
     },
 
     getAll: async (callback) => {
