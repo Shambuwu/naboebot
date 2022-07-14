@@ -14,7 +14,7 @@ module.exports = {
         embed.setTimestamp();
 
         await db.getAllBattlecatsFromUser(`${message.author.username}#${message.author.discriminator}`, message.guild.name, (result) => {
-            const battlecats = result.map(row => ({name: row.name, value: `Level: ${JSON.parse(row.stats).lvl}\n${JSON.parse(row.stats).rarity}`, inline: true}))
+            const battlecats = result.sort((a, b) => JSON.parse(a.stats).lvl > JSON.parse(b.stats).lvl ? -1 : 1).map(row => ({name: row.name, value: `Level: ${JSON.parse(row.stats).lvl}\n${JSON.parse(row.stats).rarity}`, inline: true}))
 
             let chunks = [], size = 9;
             while (battlecats.length > 0) chunks.push(battlecats.splice(0, size));

@@ -20,7 +20,7 @@ const rarities = {
     ultra_rare: {
         name: "Ultra Rare",
         modifier: 15,
-        color: "BLURPLE",
+        color: "PURPLE",
     },
     legendary: {
         name: "Legendary",
