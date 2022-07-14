@@ -23,7 +23,7 @@ module.exports = {
         const embed = new MessageEmbed();
         embed.setColor("BLURPLE");
         embed.setTitle(`**${battlecat.name}** gevangen!`);
-        embed.setDescription(`${Object.keys(battlecat.stats).map((stat) => `**${stat}**: ${battlecat.stats[stat]}`).join("\n\n")}`);
+        embed.addFields(Object.keys(battlecat.stats).map((stat) => ({name: stat.toUpperCase(), value: battlecat.stats[stat].toString(), inline: true})));
         embed.setThumbnail(battlecat.thumbnail);
         embed.setTimestamp();
 

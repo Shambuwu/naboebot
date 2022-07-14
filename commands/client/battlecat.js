@@ -9,6 +9,7 @@ const battlecat = {
         atk: 1 + getRandomInt(10),
         def: 1 + getRandomInt(5),
         spd: 5 + getRandomInt(3),
+        rarity: "Common",
     }
 }
 
