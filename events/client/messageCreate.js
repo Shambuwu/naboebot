@@ -29,7 +29,7 @@ module.exports = (client, message) => {
     }
 
     const bc = client.commands.get("battlecat");
-    if(message.guild.counter === 5) {
+    if(message.guild.counter === 30) {
         message.guild.counter = 0;
         bc.spawncat(client, message).then((r) => console.log(`-> Battlecat has spawned in ${message.guild.name}`));
     }
