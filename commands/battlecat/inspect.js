@@ -6,7 +6,7 @@ function capitalizeFirstLetter(string) {
 
 module.exports = {
     name: "inspect",
-    description: "Battlecat list command, use to view your battlecats",
+    description: "Battlecat list command, use to view your Battlecats",
     aliases: ["i"],
     utilization: `${client.config.settings.prefix}battlecat inspect`,
     slashCommand: true,
@@ -36,10 +36,11 @@ module.exports = {
 
             embed.setTitle(result[0].name);
             embed.addFields(Object.keys(stats).map(stat => ({name: stat.toUpperCase(), value: stats[stat].toString(), inline: true})));
+            embed.addField("Gevangen op:", result[0].time.toString().replace(" ", "\n"));
             embed.setImage(result[0].thumbnail);
             embed.setColor(client.battlecats.rarities[stats.rarity.toLowerCase().replace(" ", "_")].color);
 
-            return message.channel.send({embeds: [embed]});
+            return message.reply({embeds: [embed]});
         })
     }
 }

@@ -2,14 +2,14 @@ const {MessageEmbed} = require("discord.js");
 
 module.exports = {
     name: "claim",
-    description: "Battlecat claim command, use to claim a battlecat",
+    description: "Battlecat claim command, use to claim a Battlecat",
     aliases: ["c"],
     utilization: `${client.config.settings.prefix}battlecat claim [name]`,
     slashCommand: true,
     options: [
         {
             name: "query",
-            description: "Name of the battlecat you want to claim.",
+            description: "Name of the Battlecat you want to claim.",
             type: "STRING",
             required: true,
         }

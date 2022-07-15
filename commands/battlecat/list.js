@@ -2,7 +2,7 @@ const {MessageEmbed} = require("discord.js");
 
 module.exports = {
     name: "list",
-    description: "Battlecat list command, use to view your battlecats",
+    description: "Battlecat list command, use to view your Battlecats",
     aliases: ["l"],
     utilization: `${client.config.settings.prefix}battlecat list [page number]`,
     slashCommand: true,
