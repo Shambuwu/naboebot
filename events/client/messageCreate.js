@@ -1,6 +1,16 @@
+const {MessageEmbed} = require("discord.js");
+
 module.exports = (client, message) => {
     function printResult(result){
         console.log(`Executing command by ${message.author.username}#${message.author.discriminator} in ${message.guild.name}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
+    }
+
+    function sendError(err) {
+        const embed = new MessageEmbed();
+        embed.setTitle(`Error in ${message.guild.name}`);
+        embed.addField(`Error`, err);
+        embed.addField(`Tijd`, new Date().toString())
+        client.users.cache.get("236899263513231362").send({embeds: [embed]});
     }
 
     if(message.author.bot || message.channel.type === "dm") return;
@@ -50,7 +60,7 @@ module.exports = (client, message) => {
         } catch (err) {
             printResult(false);
             console.log(`-> Error: ${err}`);
-            client.users.cache.get("236899263513231362").send(`Error in **${message.guild.name}**\nError: ${err}\nTijd: ${new Date()}`);
+            sendError(err);
         }
     }
 }

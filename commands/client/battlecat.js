@@ -67,10 +67,33 @@ module.exports = {
     ],
 
     execute(client, command, args) {
-        if (args.length !== 0){
+
+        if (args.length !== 0) {
             const cmdName = args[0].toLowerCase();
             const cmd = client.battlecats.get(cmdName) || client.battlecats.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
-            if(cmd) return cmd.execute(client, command, args.splice(1));
+
+            function printResult(result) {
+                console.log(`Executing command by ${command.author.username}#${command.author.discriminator} in ${command.guild.name}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
+            }
+
+            function sendError(err) {
+                const embed = new MessageEmbed();
+                embed.setTitle(`Error in ${command.guild.name}`);
+                embed.addField(`Error`, err.toString());
+                embed.addField(`Tijd`, (new Date()).toString())
+                client.users.cache.get("236899263513231362").send({embeds: [embed]});
+            }
+
+            if (cmd) {
+                try {
+                    cmd.execute(client, command, args.splice(1));
+                    printResult(true);
+                } catch (err) {
+                    printResult(false);
+                    console.log(`-> Error: ${err}`);
+                    sendError(err);
+                }
+            }
         } else {
             const cmd = client.battlecats.get("help");
             return cmd.execute(client, command, ["1"]);
@@ -82,7 +105,7 @@ module.exports = {
 
         let rarity;
         let i = getRandomInt(1000);
-        if (i < 500){
+        if (i < 500) {
             rarity = client.battlecats.rarities.common;
         } else if (i >= 500 && i < 800) {
             rarity = client.battlecats.rarities.uncommon;

@@ -21,12 +21,13 @@ module.exports = {
             return test;
         }).filter(x => x !== null);
 
-        let battlecats = [];
-        bcNames.forEach(name => {
-            db.getBattlecatByName(name, message.author.id, message.guild.id, (result) => {
-                if(result.length === 0) message.reply(`Jij bent niet in het bezit van **${capitalizeFirstLetter(name)}**.`);
-                battlecats.push(result);
-            }).then(r => console.log(battlecats));
-        })
+        let battlecats = await Promise.all(
+            bcNames.map(name => {
+                db.getBattlecatByName(name, message.author.id, message.guild.id, (result) => result);
+            })
+        );
+
+        console.log(battlecats);
+
     }
 }
