@@ -4,29 +4,34 @@ const axios = require("axios");
 client.battlecats.rarities = {
     common: {
         name: "Common",
-        modifier: 3,
+        modifier: 5,
         color: "WHITE",
     },
     uncommon: {
         name: "Uncommon",
-        modifier: 5,
+        modifier: 10,
         color: "GREEN",
     },
     rare: {
         name: "Rare",
-        modifier: 10,
+        modifier: 20,
         color: "BLUE",
     },
-    ultra_rare: {
-        name: "Ultra Rare",
-        modifier: 15,
+    super_rare: {
+        name: "Super Rare",
+        modifier: 30,
         color: "PURPLE",
     },
     legendary: {
         name: "Legendary",
-        modifier: 20,
-        color: "LUMINOUS_VIVID_PINK"
+        modifier: 40,
+        color: "GOLD"
     },
+    mythic: {
+        name: "Mythic",
+        modifier: 60,
+        color: "LUMINOUS_VIVID_PINK",
+    }
 }
 
 const battlecat = {
@@ -76,17 +81,19 @@ module.exports = {
         clearTimeout(command.guild.currentTimeout);
 
         let rarity;
-        let i = getRandomInt(100);
-        if (i < 50){
+        let i = getRandomInt(1000);
+        if (i < 500){
             rarity = client.battlecats.rarities.common;
-        } else if (i >= 50 && i < 80) {
+        } else if (i >= 500 && i < 800) {
             rarity = client.battlecats.rarities.uncommon;
-        } else if (i >= 80 && i < 95) {
+        } else if (i >= 800 && i < 950) {
             rarity = client.battlecats.rarities.rare;
-        } else if (i >= 95 && i < 99) {
-            rarity = client.battlecats.rarities.ultra_rare;
-        } else {
+        } else if (i >= 950 && i < 990) {
+            rarity = client.battlecats.rarities.super_rare;
+        } else if ((i >= 990 && i < 999)) {
             rarity = client.battlecats.rarities.legendary;
+        } else {
+            rarity = client.battlecats.rarities.mythic;
         }
 
         const embed = new MessageEmbed();
@@ -102,7 +109,7 @@ module.exports = {
             .then((response) => response.data)
             .then((data) => {
                 battlecat.name = data.results[0].name.first;
-                embed.setTitle(`**${battlecat.name}** is verschenen!`);
+                embed.setTitle(`**${battlecat.name}** (${rarity.name.toLowerCase()}) is verschenen!`);
             });
 
         battlecat.stats = {
