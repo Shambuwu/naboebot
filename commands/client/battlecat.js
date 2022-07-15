@@ -108,7 +108,7 @@ module.exports = {
         await axios.request(client.config.apis.randomuser)
             .then((response) => response.data)
             .then((data) => {
-                battlecat.name = data.results[0].name.first;
+                battlecat.name = Math.random() > 0.5 ? battlecat.name = data.results[0].name.first : `${data.results[0].name.first} ${data.results[1].name.last}`;
                 embed.setTitle(`**${battlecat.name}** (${rarity.name.toLowerCase()}) is verschenen!`);
             });
 
