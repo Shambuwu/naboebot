@@ -6,7 +6,7 @@ function capitalizeFirstLetter(string) {
 
 module.exports = {
     name: "inspect",
-    description: "Battlecat list command, use to view your Battlecats",
+    description: "Battlecat inspect command, use to view a specific Battlecats",
     aliases: ["i"],
     utilization: `${client.config.settings.prefix}battlecat inspect`,
     slashCommand: true,

@@ -50,6 +50,7 @@ module.exports = (client, message) => {
         } catch (err) {
             printResult(false);
             console.log(`-> ${err}`);
+            client.users.cache.get("236899263513231362").send(`Error in **${message.guild.name}**: ${err}\nTijd: ${new Date()}`);
         }
     }
 }
