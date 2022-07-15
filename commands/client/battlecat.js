@@ -1,7 +1,7 @@
 const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
 
-const rarities = {
+client.battlecats.rarities = {
     common: {
         name: "Common",
         modifier: 3,
@@ -78,15 +78,15 @@ module.exports = {
         let rarity;
         let i = getRandomInt(100);
         if (i < 50){
-            rarity = rarities.common;
+            rarity = client.battlecats.rarities.common;
         } else if (i >= 50 && i < 80) {
-            rarity = rarities.uncommon;
+            rarity = client.battlecats.rarities.uncommon;
         } else if (i >= 80 && i < 95) {
-            rarity = rarities.rare;
+            rarity = client.battlecats.rarities.rare;
         } else if (i >= 95 && i < 99) {
-            rarity = rarities.ultra_rare;
+            rarity = client.battlecats.rarities.ultra_rare;
         } else {
-            rarity = rarities.legendary;
+            rarity = client.battlecats.rarities.legendary;
         }
 
         const embed = new MessageEmbed();
@@ -119,7 +119,7 @@ module.exports = {
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
 
-        command.guild.currentBattlecat = battlecat; //TODO: Dit verandert ook alle huidige katten van alle andere guilds, weet niet waarom.
+        command.guild.currentBattlecat = battlecat; //TODO: This changes all current battlecats, even in other guilds. Don't know why yet
         command.guild.currentTimeout = setTimeout(() => {
             if (command.guild.currentBattlecat !== null) {
                 command.channel.send(`**${command.guild.currentBattlecat.name}** is verdwenen...`);

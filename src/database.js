@@ -30,6 +30,15 @@ module.exports = {
         })
     },
 
+    getBattlecatByname: async(name, owner, server, callback) => {
+        let data = [];
+        battlecatdb.each(`SELECT * FROM battlecats WHERE name = ? AND owner = ? AND server = ?`, [name, owner, server], (err, row) => {
+            data.push(row)
+        }, () => {
+            callback(data);
+        })
+    },
+
     getAll: async (callback) => {
         let data = [];
         playerdb.each(`SELECT * FROM player_stats`, (err, row) => {

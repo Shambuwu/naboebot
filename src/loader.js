@@ -46,4 +46,3 @@ for (const file of bcCommands) {
     client.battlecats.set(command.name.toLowerCase(), command);
     delete require.cache[require.resolve(`../commands/battlecat/${file}`)];
 }
-//TODO: Cannot find module??
