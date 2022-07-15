@@ -28,7 +28,7 @@ module.exports = {
         embed.setTimestamp();
 
         if (battlecat.name.toLowerCase() === args.join(" ").toLowerCase()) {
-            await db.insertBattlecat(battlecat.name, battlecat.thumbnail, JSON.stringify(battlecat.stats), `${message.author.username}#${message.author.discriminator}`, message.guild.name);
+            await db.insertBattlecat(battlecat.name.toLowerCase(), battlecat.thumbnail, JSON.stringify(battlecat.stats), message.author.id, message.guild.id);
             clearTimeout(message.guild.currentTimeout);
             message.guild.currentBattlecat = null;
             return message.reply({embeds: [embed]});

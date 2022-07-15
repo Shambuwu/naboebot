@@ -26,15 +26,18 @@ module.exports = {
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
 
-        const bcName = args.map(arg => capitalizeFirstLetter(arg.toLowerCase())).join(" ");
+        const bcName = args.join(" ").toLowerCase();
 
 
-        await db.getBattlecatByname(bcName, `${message.author.username}#${message.author.discriminator}`, message.guild.name, (result) => {
+        await db.getBattlecatByname(bcName, message.author.id, message.guild.id, (result) => {
             if(result.length === 0) return message.reply(`Deze kat is niet in jouw bezit...`);
+
+            let name = result[0].name.split(" ");
+            name = name.map(name => capitalizeFirstLetter(name)).join(" ");
 
             const stats = JSON.parse(result[0].stats)
 
-            embed.setTitle(result[0].name);
+            embed.setTitle(name);
             embed.addFields(Object.keys(stats).map(stat => ({name: stat.toUpperCase(), value: stats[stat].toString(), inline: true})));
             embed.addField("Gevangen op:", result[0].time.toString().replace(" ", "\n"));
             embed.setImage(result[0].thumbnail);

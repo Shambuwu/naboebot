@@ -20,7 +20,7 @@ module.exports = {
         })
     },
 
-    getAllBattlecatsFromUser: async (owner, server, callback) => {
+    getAllBattlecatsByUser: async (owner, server, callback) => {
         let data = [];
         battlecatdb.each(`SELECT * FROM battlecats WHERE owner = ? AND server = ?`, [owner, server], (err, row) => {
             if (err && err.code) return console.log(err);
@@ -30,7 +30,7 @@ module.exports = {
         })
     },
 
-    getBattlecatByname: async(name, owner, server, callback) => {
+    getBattlecatByName: async(name, owner, server, callback) => {
         let data = [];
         battlecatdb.each(`SELECT * FROM battlecats WHERE name = ? AND owner = ? AND server = ?`, [name, owner, server], (err, row) => {
             data.push(row)

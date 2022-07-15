@@ -19,7 +19,7 @@ module.exports = (client, message) => {
     }
 
     const bc = client.commands.get("battlecat");
-    if(message.guild.counter === 25) {
+    if(message.guild.counter === 5) {
         message.guild.counter = 0;
         bc.spawncat(client, message).then((r) => console.log(`-> Battlecat has spawned in ${message.guild.name}`));
     }
@@ -49,8 +49,8 @@ module.exports = (client, message) => {
             printResult(true);
         } catch (err) {
             printResult(false);
-            console.log(`-> ${err}`);
-            client.users.cache.get("236899263513231362").send(`Error in **${message.guild.name}**: ${err}\nTijd: ${new Date()}`);
+            console.log(`-> Error: ${err}`);
+            client.users.cache.get("236899263513231362").send(`Error in **${message.guild.name}**\nError: ${err}\nTijd: ${new Date()}`);
         }
     }
 }
