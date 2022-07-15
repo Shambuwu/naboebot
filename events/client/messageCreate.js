@@ -44,7 +44,12 @@ module.exports = (client, message) => {
     }
 
     if(cmd) {
-        printResult(true);
-        cmd.execute(client, message, args);
+        try {
+            cmd.execute(client, message, args);
+            printResult(true);
+        } catch (err) {
+            printResult(false);
+            console.log(`-> ${err}`);
+        }
     }
 }
