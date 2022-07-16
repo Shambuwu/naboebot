@@ -1,8 +1,5 @@
 const {MessageEmbed} = require("discord.js");
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+const bcFunctions = require("../../src/bc-functions");
 
 module.exports = {
     name: "list",
@@ -29,7 +26,7 @@ module.exports = {
             const battlecats = result.sort((a, b) => JSON.parse(a.stats).lvl > JSON.parse(b.stats).lvl ? -1 : 1).map(row => ({name: row.name, value: `Level: ${JSON.parse(row.stats).lvl}\n${JSON.parse(row.stats).rarity}`, inline: true}))
             battlecats.forEach(cat => {
                 let temp = cat.name.split(" ");
-                temp = temp.map(name => capitalizeFirstLetter(name)).join(" ");
+                temp = temp.map(name => bcFunctions.capitalizeFirstLetter(name)).join(" ");
                 cat.name = temp;
             });
 

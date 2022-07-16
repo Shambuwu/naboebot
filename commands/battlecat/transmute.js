@@ -1,13 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
-}
+const bcFunctions = require("../../src/bc-functions.js");
 
 
 module.exports = {
@@ -33,7 +26,7 @@ module.exports = {
         let requests = bcNames.map((name) => {
             return new Promise((resolve) => {
                 db.getBattlecatByName(name, message.author.id, message.guild.id).then(r => {
-                    if(r.length === 0) return message.reply(`Je bent niet in bezit van **${capitalizeFirstLetter(name)}**`)
+                    if(r.length === 0) return message.reply(`Je bent niet in bezit van **${bcFunctions.capitalizeFirstLetter(name)}**`)
                     resolve(r)
                 });
             })
@@ -62,38 +55,14 @@ module.exports = {
                     break;
             }
 
-            const battlecat = {
-                name: "",
-                thumbnail: "",
-                stats: {
-                    lvl: 1,
-                    hp: 5 + getRandomInt(rarity.modifier),
-                    atk: 1 + getRandomInt(rarity.modifier),
-                    def: 1 + getRandomInt(rarity.modifier),
-                    spd: 1 + Math.floor(getRandomInt(rarity.modifier) / 2),
-                    rarity: rarity.name,
-                }
-            }
-
+            const battlecat = await bcFunctions.getRandomBattlecat(rarity);
             const embed = new MessageEmbed();
 
-            await axios.request(client.config.apis.thecatapi)
-                .then((response) => response.data)
-                .then((data) => {
-                    battlecat.thumbnail = data[0].url;
-                    embed.setImage(data[0].url);
-                });
-
-            await axios.request(client.config.apis.randomuser)
-                .then((response) => response.data)
-                .then((data) => {
-                    battlecat.name = Math.random() > 0.5 ? battlecat.name = data.results[0].name.first : `${data.results[0].name.first} ${data.results[1].name.last}`;
-                    embed.setTitle(`Je katten zijn getransmuteerd tot **${battlecat.name}** (${battlecat.stats.rarity.toLowerCase()})!`);
-                });
-
+            embed.setTitle(`Jouw Battlecats zijn getransmuteerd tot **${battlecat.name}** (${rarity.name.toLowerCase()})!`);
             embed.setColor(rarity.color);
             embed.addFields(Object.keys(battlecat.stats).map(stat => ({name: stat.toUpperCase(), value: battlecat.stats[stat].toString(), inline: true})));
             embed.setDescription(`${battlecat.name} is toegevoegd aan jouw verzameling!`);
+            embed.setImage(battlecat.thumbnail);
             embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
             embed.setTimestamp();
 

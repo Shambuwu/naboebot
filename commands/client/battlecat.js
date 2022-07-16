@@ -1,5 +1,6 @@
 const {MessageEmbed} = require("discord.js");
 const axios = require("axios");
+const bcFunctions = require("../../src/bc-functions.js");
 
 client.battlecats.rarities = {
     common: {
@@ -32,23 +33,6 @@ client.battlecats.rarities = {
         modifier: 60,
         color: "LUMINOUS_VIVID_PINK",
     }
-}
-
-const battlecat = {
-    name: "",
-    thumbnail: "",
-    stats: {
-        lvl: null,
-        hp: null,
-        atk: null,
-        def: null,
-        spd: null,
-        rarity: null,
-    }
-}
-
-function getRandomInt(max) {
-    return Math.floor(Math.random() * max);
 }
 
 module.exports = {
@@ -104,7 +88,7 @@ module.exports = {
         clearTimeout(command.guild.currentTimeout);
 
         let rarity;
-        let i = getRandomInt(1000);
+        let i = bcFunctions.getRandomInt(1000);
         if (i < 500) {
             rarity = client.battlecats.rarities.common;
         } else if (i >= 500 && i < 800) {
@@ -120,32 +104,12 @@ module.exports = {
         }
 
         const embed = new MessageEmbed();
+        const battlecat = await bcFunctions.getRandomBattlecat(rarity);
 
-        await axios.request(client.config.apis.thecatapi)
-            .then((response) => response.data)
-            .then((data) => {
-                battlecat.thumbnail = data[0].url;
-                embed.setImage(data[0].url);
-            });
-
-        await axios.request(client.config.apis.randomuser)
-            .then((response) => response.data)
-            .then((data) => {
-                battlecat.name = Math.random() > 0.5 ? battlecat.name = data.results[0].name.first : `${data.results[0].name.first} ${data.results[1].name.last}`;
-                embed.setTitle(`**${battlecat.name}** (${rarity.name.toLowerCase()}) is verschenen!`);
-            });
-
-        battlecat.stats = {
-            lvl: 1,
-            hp: 5 + getRandomInt(rarity.modifier),
-            atk: 1 + getRandomInt(rarity.modifier),
-            def: 1 + getRandomInt(rarity.modifier),
-            spd: 1 + Math.floor(getRandomInt(rarity.modifier) / 2),
-            rarity: rarity.name,
-        }
-
+        embed.setTitle(`**${battlecat.name}** (${rarity.name.toLowerCase()}) is verschenen!`);
         embed.setColor(rarity.color);
         embed.setDescription(`Gebruik **!battlecat claim** *naam* om deze kat te vangen!`);
+        embed.setImage(battlecat.thumbnail);
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
 

@@ -1,8 +1,5 @@
 const {MessageEmbed} = require("discord.js");
-
-function capitalizeFirstLetter(string) {
-    return string.charAt(0).toUpperCase() + string.slice(1);
-}
+const bcFunctions = require("../../src/bc-functions.js");
 
 module.exports = {
     name: "inspect",
@@ -29,7 +26,7 @@ module.exports = {
             if(result.length === 0) return message.reply(`Deze kat is niet in jouw bezit...`);
 
             let name = result[0].name.split(" ");
-            name = name.map(name => capitalizeFirstLetter(name)).join(" ");
+            name = name.map(name => bcFunctions.capitalizeFirstLetter(name)).join(" ");
 
             const stats = JSON.parse(result[0].stats)
             const embed = new MessageEmbed();

@@ -1,4 +1,5 @@
 const {MessageEmbed, MessageAttachment} = require("discord.js");
+
 module.exports = {
     name: "help",
     description: "Battlecat help command",
