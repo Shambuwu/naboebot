@@ -43,6 +43,15 @@ module.exports = {
         })
     },
 
+    removeBattlecatByName: async(name, owner, server) => {
+        return new Promise((resolve, reject) => {
+            battlecatdb.run(`DELETE FROM battlecats WHERE name = ? AND owner = ? AND server = ?`, [name, owner, server], (err) => {
+                if (err) reject(err);
+                resolve(`Succesfully removed ${name} from table`);
+            })
+        })
+    },
+
     getAll: async (callback) => {
         let data = [];
         playerdb.each(`SELECT * FROM player_stats`, (err, row) => {

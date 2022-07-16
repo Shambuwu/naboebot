@@ -32,8 +32,8 @@ module.exports = {
             name = name.map(name => capitalizeFirstLetter(name)).join(" ");
 
             const stats = JSON.parse(result[0].stats)
-
             const embed = new MessageEmbed();
+
             embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
             embed.setTimestamp();
             embed.setTitle(name);

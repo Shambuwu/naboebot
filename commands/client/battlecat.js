@@ -73,7 +73,7 @@ module.exports = {
             const cmd = client.battlecats.get(cmdName) || client.battlecats.find(cmd => cmd.aliases && cmd.aliases.includes(cmdName));
 
             function printResult(result) {
-                console.log(`Executing command by ${command.author.username}#${command.author.discriminator} in ${command.guild.name}\n-> Command: ${cmd.name}\n-> Args: ${args.join(" ")}\n-> Result: ${result ? "success" : "error"}`);
+                console.log(`Executing command by ${command.author.username}#${command.author.discriminator} in ${command.guild.name}\n-> Command: ${cmd.name}\n-> Args: ${args.splice(1).join(" ")}\n-> Result: ${result ? "success" : "error"}`);
             }
 
             function sendError(err) {
