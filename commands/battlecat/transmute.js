@@ -36,6 +36,8 @@ module.exports = {
             result = result[0]
             if (!result.every(cat => JSON.parse(cat.stats).rarity === JSON.parse(result[0].stats).rarity)) return message.reply(`Deze katten zijn niet van dezelfde rarity!`);
 
+
+            console.log(result[0])
             let rarity;
             switch(JSON.parse(result[0].stats).rarity.toLowerCase()) {
                 case "common":
@@ -44,13 +46,13 @@ module.exports = {
                 case "uncommon":
                     rarity = client.battlecats.rarities.rare;
                     break;
-                case "Rare":
+                case "rare":
                     rarity = client.battlecats.rarities.super_rare;
                     break;
-                case "Super Rare":
+                case "super Rare":
                     rarity = client.battlecats.rarities.legendary;
                     break;
-                case "Legendary":
+                case "legendary":
                     rarity = client.battlecats.rarities.mythic;
                     break;
             }
