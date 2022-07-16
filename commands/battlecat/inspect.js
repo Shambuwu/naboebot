@@ -22,14 +22,10 @@ module.exports = {
     async execute(client, message, args) {
         if(args.length === 0) return message.reply(`Geef de naam van een Battlecat mee om deze te inspecteren, ${message.author}...`);
 
-        const embed = new MessageEmbed();
-        embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
-        embed.setTimestamp();
-
         const bcName = args.join(" ").toLowerCase();
 
 
-        await db.getBattlecatByName(bcName, message.author.id, message.guild.id, (result) => {
+        db.getBattlecatByName(bcName, message.author.id, message.guild.id).then(result => {
             if(result.length === 0) return message.reply(`Deze kat is niet in jouw bezit...`);
 
             let name = result[0].name.split(" ");
@@ -37,6 +33,9 @@ module.exports = {
 
             const stats = JSON.parse(result[0].stats)
 
+            const embed = new MessageEmbed();
+            embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
+            embed.setTimestamp();
             embed.setTitle(name);
             embed.addFields(Object.keys(stats).map(stat => ({name: stat.toUpperCase(), value: stats[stat].toString(), inline: true})));
             embed.addField("Gevangen op:", result[0].time.toString().replace(" ", "\n"));
@@ -44,6 +43,6 @@ module.exports = {
             embed.setColor(client.battlecats.rarities[stats.rarity.toLowerCase().replace(" ", "_")].color);
 
             return message.reply({embeds: [embed]});
-        })
+        });
     }
 }

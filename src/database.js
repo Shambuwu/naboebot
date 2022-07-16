@@ -30,12 +30,16 @@ module.exports = {
         })
     },
 
-    getBattlecatByName: async(name, owner, server, callback) => {
-        let data = [];
-        battlecatdb.each(`SELECT * FROM battlecats WHERE name = ? AND owner = ? AND server = ?`, [name, owner, server], (err, row) => {
-            data.push(row)
-        }, () => {
-            callback(data);
+    getBattlecatByName: async(name, owner, server) => {
+        return new Promise((resolve, reject) => {
+            let data = [];
+            battlecatdb.each(`SELECT * FROM battlecats WHERE name = ? AND owner = ? AND server = ?`, [name, owner, server], (err, row) => {
+                if (err) reject(err);
+                data.push(row);
+            }, (err, r) => {
+                if (err) reject(err);
+                resolve(data);
+            })
         })
     },
 

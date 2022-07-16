@@ -12,22 +12,25 @@ module.exports = {
     slashCommand: true,
 
     async execute(client, message, args) {
-        if(args.length === 0) return message.reply(`Geef de namen van drie Battlecats van dezelfde rarity om deze te transmuteren, ${message.author}...\nVoorbeeld syntax: \`!battlecat transmute john, charles, claudia\``);
+        if (args.length === 0) return message.reply(`Geef de namen van drie Battlecats van dezelfde rarity om deze te transmuteren, ${message.author}...\nVoorbeeld syntax: \`!battlecat transmute john, charles, claudia\``);
+
         const bcNames = args.map((name, index, array) => {
-            if (name[name.length-1] === ",") return name.replace(",", "");
-            if (array[index+1] === undefined) return name.replace(",", "");
-            let test = `${name} ${array[index+1].replace(",", "")}`;
-            array.splice(index+1, 1);
+            if (name[name.length - 1] === ",") return name.replace(",", "");
+            if (array[index + 1] === undefined) return name.replace(",", "");
+            let test = `${name} ${array[index + 1].replace(",", "")}`;
+            array.splice(index + 1, 1);
             return test;
         }).filter(x => x !== null);
 
-        let battlecats = await Promise.all(
-            bcNames.map(name => {
-                db.getBattlecatByName(name, message.author.id, message.guild.id, (result) => result);
-            })
-        );
+        if (bcNames.length < 3) return message.reply(`Je hebt drie katten nodig om transmutatie uit te voeren, ${message.author}...\nVoorbeeld syntax: \`!battlecat transmute john, charles, claudia\``);
 
-        console.log(battlecats);
+        const gupte = new Promise((resolve, reject) => {
+            const data = [];
+            bcNames.forEach(name => db.getBattlecatByName(name, message.author.id, message.guild.id).then(r => {
+                data.push(r);
+            }))
+        })
 
+        gupte.then(r => console.log(r));
     }
 }
