@@ -29,7 +29,7 @@ module.exports = {
         const bcName = args.join(" ").toLowerCase();
 
 
-        await db.getBattlecatByname(bcName, message.author.id, message.guild.id, (result) => {
+        await db.getBattlecatByName(bcName, message.author.id, message.guild.id, (result) => {
             if(result.length === 0) return message.reply(`Deze kat is niet in jouw bezit...`);
 
             let name = result[0].name.split(" ");
