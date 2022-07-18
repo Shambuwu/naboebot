@@ -14,22 +14,22 @@ module.exports = {
 
         const row = new MessageActionRow().addComponents(
             new MessageButton()
-                .setCustomId("1")
+                .setCustomId("left")
                 .setLabel("<<")
                 .setStyle("PRIMARY"),
 
             new MessageButton()
-                .setCustomId("2")
+                .setCustomId("accept")
                 .setLabel("accept")
                 .setStyle("PRIMARY"),
 
             new MessageButton()
-                .setCustomId("3")
+                .setCustomId("decline")
                 .setLabel("decline")
                 .setStyle("PRIMARY"),
 
             new MessageButton()
-                .setCustomId("4")
+                .setCustomId("right")
                 .setLabel(">>")
                 .setStyle("PRIMARY")
         );
@@ -40,18 +40,50 @@ module.exports = {
         });
 
 
-        const filter = i => i.customId === '1';
+        const filter = i => true;
         const collector = message.channel.createMessageComponentCollector({ filter });
 
         collector.on('collect', async i => {
             console.log("button clicked");
-            var newEmbed = new MessageEmbed();
-            newEmbed.setColor("BLUE");
-            newEmbed.setTitle(`testing`)
-            tradeUI.edit({
-                embeds: [newEmbed], 
-                components: [row]
-            })
+            i.deferUpdate();
+
+            var newEmbed = embed;
+
+            if (i.customId === 'right') {
+                newEmbed.setTitle(`right`);
+
+                tradeUI.edit({
+                    embeds: [newEmbed], 
+                    components: [row]
+                });
+            }
+
+            if (i.customId === 'left') {
+                newEmbed.setTitle(`left`);
+
+                tradeUI.edit({
+                    embeds: [newEmbed], 
+                    components: [row]
+                });
+            }
+
+            if (i.customId === 'accept'){
+                newEmbed.setTitle(`accept`);
+
+                tradeUI.edit({
+                    embeds: [newEmbed], 
+                    components: [row]
+                });
+            }
+
+            if (i.customId === 'decline'){
+                newEmbed.setTitle(`decline`);
+
+                tradeUI.edit({
+                    embeds: [newEmbed], 
+                    components: [row]
+                });
+            }
         });
     }
 }
