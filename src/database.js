@@ -20,13 +20,22 @@ module.exports = {
         })
     },
 
-    getAllBattlecatsByUser: async (owner, server, callback) => {
-        let data = [];
-        battlecatdb.each(`SELECT * FROM battlecats WHERE owner = ? AND server = ?`, [owner, server], (err, row) => {
+    setBattlecatOwner: async (id, new_owner) => {
+        battlecatdb.run(`UPDATE battlecats SET owner = ? WHERE id = ?`, [new_owner, id], (err) => {
             if (err && err.code) return console.log(err);
-            data.push(row);
-        }, () => {
-            callback(data);
+        })
+    },
+
+    getAllBattlecatsByUser: async(owner, server) => {
+        return new Promise((resolve, reject) => {
+            let data = [];
+            battlecatdb.each(`SELECT * FROM battlecats WHERE owner = ? AND server = ?`, [owner, server], (err, row) =>{
+                if (err) reject(err);
+                data.push(row);
+            }, (err, r) => {
+                if (err) reject(err);
+                resolve(data);
+            })
         })
     },
 
