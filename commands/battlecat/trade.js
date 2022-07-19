@@ -18,9 +18,9 @@ module.exports = {
 
         // getting list of cats from both players
         const playerOfferingCats = await db.getAllBattlecatsByUser(playerOffering.id, message.guild.id)
-        if(!playerOfferingCats[0]) { return message.reply('sorry maar jij hebt geen poejes')}
+        if(!playerOfferingCats[0]) { return message.reply('sorry, maar jij hebt geen poejes')}
         const playerOfferedCats = await db.getAllBattlecatsByUser(playerOffered.id, message.guild.id)
-        if(!playerOfferedCats[0]) { return message.reply('sorry maar deze persoon heeft geen poejes')}
+        if(!playerOfferedCats[0]) { return message.reply('sorry, maar deze persoon heeft geen poejes')}
         
         // initialising initial starter values for the offers
         let offeringIndex = 0
@@ -29,9 +29,9 @@ module.exports = {
         let offeredAccepted = false
 
         // title embed
-        const titleEmbed = tileEmbed = new MessageEmbed();
-        tileEmbed.setColor("BLURPLE");
-        tileEmbed.setTitle(`${playerOffering.username} wilt katjes met je ruilen`);
+        const titleEmbed = new MessageEmbed();
+        titleEmbed.setColor("BLURPLE");
+        titleEmbed.setTitle(`${playerOffering.username} wilt katjes met je ruilen`);
 
         // defining offers
         let offeringCat = playerOfferingCats[offeringIndex]
@@ -99,7 +99,7 @@ module.exports = {
         // filtering the users so only the traders trigger the buttons
         let filter = i => ((i.user === playerOffered) || (i.user === playerOffering));
         
-        // setup up collector to listen to the buttons
+        // setup up collector to listen to the buttons in tradeUI
         const collector = tradeUI.createMessageComponentCollector({ filter });
 
         // listening to buttons being pressed
@@ -154,7 +154,7 @@ module.exports = {
                     offeredAccepted = true
                 }
 
-                if (offeringAccepted === true && offeredAccepted === true){
+                if (offeringAccepted && offeredAccepted){
                     await tradeUI.delete()
                     db.setBattlecatOwner(offeringCat.id, playerOffered.id)
                     db.setBattlecatOwner(offeredCat.id, playerOffering.id)
