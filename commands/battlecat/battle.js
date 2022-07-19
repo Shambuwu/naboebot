@@ -273,7 +273,7 @@ module.exports = {
                 if (turn === 'DEFENSIVE' && i.user === defensivePlayer){
                     if (i.customId === 'DODGE'){
                         setSpd()
-                        
+
                         if (spd > atk){
                             infoEmbed.setTitle(`${getDefensiveCat().name} heeft de slag met [${atk}] punten ontweken met [${spd}] punten `)
                             infoEmbed.setColor("BLUE")
@@ -283,7 +283,6 @@ module.exports = {
                             hit(atk)
                         }
 
-
                         toggleTurn()
                         await BattleUI.edit({embeds: [titleEmbed, infoEmbed ,getChallengingEmbed(), getChallengedEmbed()],
                             components: [offensiveButtonContainer]});
@@ -291,7 +290,6 @@ module.exports = {
                     }
     
                     if (i.customId === 'BLOCK' && i.user === defensivePlayer){
-                        console.log("block")
                         setDef()
                         
                         if (def >= atk){

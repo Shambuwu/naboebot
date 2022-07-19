@@ -1,4 +1,4 @@
-const {MessageEmbed} = require("discord.js");
+const {MessageEmbed, MessageActionRow, MessageButton} = require("discord.js");
 const axios = require("axios");
 const bcFunctions = require("../../src/bc-functions.js");
 
@@ -113,6 +113,8 @@ module.exports = {
         embed.setFooter({text: `(Deze functionaliteit is nog work in progress)`});
         embed.setTimestamp();
 
+
+
         command.guild.currentBattlecat = battlecat; //TODO: This changes all current battlecats, even in other guilds. Don't know why yet
         command.guild.currentTimeout = setTimeout(() => {
             if (command.guild.currentBattlecat !== null) {
@@ -121,6 +123,24 @@ module.exports = {
             }
         }, 45000);
 
-        return command.channel.send({embeds: [embed]});
+        const claimButtonContainer = new MessageActionRow().addComponents(
+            new MessageButton()
+                .setCustomId(`CLAIM`)
+                .setLabel("claim")
+                .setStyle("PRIMARY")
+        )
+        const claimUI = await command.channel.send({embeds: [embed], components: [claimButtonContainer]});
+        
+        console.log(claimUI)
+
+        const filter = i => ( i.customId === 'CLAIM');
+        const collector = claimUI.createMessageComponentCollector({ filter });
+
+        collector.on('collect', async i => {
+            i.deferUpdate()
+            command.author = i.user
+            const cmd = client.battlecats.get("claim")
+            return cmd.execute(client, command, [battlecat.name] );
+        });
     },
 }
