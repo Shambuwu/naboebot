@@ -130,17 +130,31 @@ module.exports = {
                 .setStyle("PRIMARY")
         )
         const claimUI = await command.channel.send({embeds: [embed], components: [claimButtonContainer]});
-        
-        console.log(claimUI)
 
         const filter = i => ( i.customId === 'CLAIM');
         const collector = claimUI.createMessageComponentCollector({ filter });
 
         collector.on('collect', async i => {
+            await claimUI.edit({components: []});
+
+            if (command.guild.currentBattlecat === null || command.guild.currentBattlecat === undefined){
+                return command.channel.send(`Er is niets om te vangen, ${i.user}...`)
+            }
+            
+            command.guild.currentBattlecat = null;
             i.deferUpdate()
-            command.author = i.user
-            const cmd = client.battlecats.get("claim")
-            return cmd.execute(client, command, [battlecat.name] );
+
+            const embed = new MessageEmbed();
+            embed.setColor("BLURPLE");
+            embed.setTitle(`**${battlecat.name}** gevangen!`);
+            embed.addFields(Object.keys(battlecat.stats).map((stat) => ({name: stat.toUpperCase(), value: battlecat.stats[stat].toString(), inline: true})));
+            embed.setThumbnail(battlecat.thumbnail);
+            embed.setTimestamp();
+
+            await db.insertBattlecat(battlecat.name.toLowerCase(), battlecat.thumbnail, JSON.stringify(battlecat.stats), i.user.id, command.guild.id);
+            await clearTimeout(command.guild.currentTimeout);
+            return command.channel.send({content: `${i.user}` ,embeds: [embed]});
+
         });
-    },
+    }
 }
